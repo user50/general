@@ -23,8 +23,13 @@ public class ProxyHttpClient {
 
     public ProxyHttpClient(HttpHost httpHost, HttpClientConnectionManager connectionManager) {
         this.httpHost = httpHost;
-        httpClient = connectionManager != null ? HttpClients.custom().setConnectionManager(connectionManager).build()
-                                               : HttpClients.custom().build();
+        httpClient = HttpClients.custom().setConnectionManager(connectionManager).build();
+
+    }
+
+    public ProxyHttpClient(HttpHost httpHost) {
+        this.httpHost = httpHost;
+        this.httpClient = HttpClients.custom().build();
     }
 
     public <T> T doRequest(HttpRequest request, ResponseHandler<T> responseHandler){
