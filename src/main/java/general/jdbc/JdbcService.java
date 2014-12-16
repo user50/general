@@ -29,6 +29,19 @@ public class JdbcService {
         }
     }
 
+    public void executeQueryByCursor(SqlOperation query, RowMapper<?> rowMapper) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                query.getRawSql(),
+                ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
+        );
+        statement.setFetchSize( Integer.MIN_VALUE );
+
+        try( ResultSet resultSet = statement.executeQuery() ) {
+            rowMapper.read(resultSet);
+        }
+    }
+
     public int executeUpdate(SqlOperation update) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(update.getRawSql())) {
