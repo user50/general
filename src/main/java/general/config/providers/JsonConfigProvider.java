@@ -1,4 +1,4 @@
-package general.config;
+package general.config.providers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,18 +10,18 @@ import java.util.Map;
 
 import static java.util.Collections.emptyMap;
 
-public class JsonPropertiesProvider extends AbstractPropertiesProvider {
+public class JsonConfigProvider extends AbstractConfigProvider {
 
     private static final TypeReference<Map<String, Object>> TYPE_REFERENCE = new TypeReference<Map<String,Object>>() {};
-    private static final Logger LOGGER = Logger.getLogger(JsonPropertiesProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(JsonConfigProvider.class);
 
     private final Map<String, Object> propertiesMap;
 
-    public JsonPropertiesProvider(String fileName) {
+    public JsonConfigProvider(String fileName) {
         this(fileName, new ObjectMapper());
     }
 
-    public JsonPropertiesProvider(String fileName, ObjectMapper objectMapper) {
+    public JsonConfigProvider(String fileName, ObjectMapper objectMapper) {
         this.propertiesMap = loadProperties(fileName, objectMapper);
     }
 

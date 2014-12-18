@@ -1,4 +1,4 @@
-package general.config;
+package general.config.providers;
 
 import org.apache.log4j.Logger;
 
@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class StreamPropertiesProvider extends AbstractPropertiesProvider {
+public class StreamConfigProvider extends AbstractConfigProvider {
 
-    private static final Logger LOGGER = Logger.getLogger(StreamPropertiesProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(StreamConfigProvider.class);
 
     private final Properties properties;
 
-    public StreamPropertiesProvider(ModulePropertiesStreamProvider streamProvider){
+    public StreamConfigProvider(ConfigStreamProvider streamProvider){
         this.properties = load(streamProvider);
     }
 
-    private Properties load(ModulePropertiesStreamProvider streamProvider){
+    private Properties load(ConfigStreamProvider streamProvider){
         Properties props = new Properties();
         try(InputStream in = streamProvider.providePropertiesStream()) {
             props.load(in);

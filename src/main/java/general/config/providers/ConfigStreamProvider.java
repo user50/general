@@ -1,9 +1,9 @@
-package general.config;
+package general.config.providers;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public interface ModulePropertiesStreamProvider {
+public interface ConfigStreamProvider {
 
     public InputStream providePropertiesStream() throws IOException;
 }

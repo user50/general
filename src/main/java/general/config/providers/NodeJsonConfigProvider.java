@@ -1,19 +1,19 @@
-package general.config;
+package general.config.providers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class NodeJsonPropertiesProvider extends JsonPropertiesProvider {
+public class NodeJsonConfigProvider extends JsonConfigProvider {
 
     private final Map<String, Object> propertiesMap;
 
-    public NodeJsonPropertiesProvider(String fileName, String nodeKey) {
+    public NodeJsonConfigProvider(String fileName, String nodeKey) {
         super(fileName);
         propertiesMap = (Map<String, Object>) getPropertiesMap().get(nodeKey);
     }
 
-    public NodeJsonPropertiesProvider(String fileName, String nodeKey, ObjectMapper objectMapper) {
+    public NodeJsonConfigProvider(String fileName, String nodeKey, ObjectMapper objectMapper) {
         super(fileName, objectMapper);
         propertiesMap = (Map<String, Object>) getPropertiesMap().get(nodeKey);
     }

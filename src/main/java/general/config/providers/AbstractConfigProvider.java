@@ -1,9 +1,9 @@
-package general.config;
+package general.config.providers;
 
-public abstract class AbstractPropertiesProvider implements PropertiesProvider {
+public abstract class AbstractConfigProvider implements ConfigProvider {
 
     @Override
-    public String getProperty(String name) throws ModulePropertyNotFoundException {
+    public String getProperty(String name) throws ConfigNotFoundException {
         return checkPropertyExists(name, getOptionalProperty(name));
     }
 
@@ -16,7 +16,7 @@ public abstract class AbstractPropertiesProvider implements PropertiesProvider {
 
     protected final void checkPropertyExists(String name, boolean condition) {
         if(condition) {
-            throw new ModulePropertyNotFoundException(name);
+            throw new ConfigNotFoundException(name);
         }
     }
 }
