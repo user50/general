@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JdbcService {
 
@@ -17,19 +15,19 @@ public class JdbcService {
         this.dataSource = dataSource;
     }
 
-    public void executeQuery(SqlOperation query, RowMapper<?> rowMapper) throws SQLException {
+    public <T> T executeQuery(SqlOperation query, ResultSetExtractor<T> resultSetExtractor) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query.getRawSql())) {
             query.prepare(preparedStatement);
 
             try(ResultSet resultSet = preparedStatement.executeQuery())
             {
-                rowMapper.read(resultSet);
+                return resultSetExtractor.read(resultSet);
             }
         }
     }
 
-    public void executeQueryByCursor(SqlOperation query, RowMapper<?> rowMapper) throws SQLException {
+    public <T> T executeQueryByCursor(SqlOperation query, ResultSetExtractor<T> resultSetExtractor) throws SQLException {
         Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(
                 query.getRawSql(),
@@ -38,7 +36,7 @@ public class JdbcService {
         statement.setFetchSize( Integer.MIN_VALUE );
 
         try( ResultSet resultSet = statement.executeQuery() ) {
-            rowMapper.read(resultSet);
+            return resultSetExtractor.read(resultSet);
         }
     }
 
