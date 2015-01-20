@@ -1,5 +1,6 @@
 package general.pool;
 
+import com.google.inject.Provider;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -8,7 +9,7 @@ import javax.sql.DataSource;
 /**
  * Created by Yevhen on 12/13/14.
  */
-public class HikariDataSourceProvider implements DataSourceProvider {
+public class HikariDataSourceProvider implements Provider<DataSource> {
 
     private DataSource dataSource;
 
@@ -25,7 +26,8 @@ public class HikariDataSourceProvider implements DataSourceProvider {
     }
 
     @Override
-    public DataSource provide() {
+    public DataSource get() {
         return dataSource;
     }
+
 }

@@ -1,5 +1,6 @@
 package general.pool;
 
+import com.google.inject.Provider;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import javax.sql.DataSource;
@@ -7,7 +8,7 @@ import javax.sql.DataSource;
 /**
  * Created by Yevhen on 12/13/14.
  */
-public class ApacheDataSourceProvider implements DataSourceProvider {
+public class ApacheDataSourceProvider implements Provider<DataSource> {
 
     private BasicDataSource dataSource;
 
@@ -21,7 +22,7 @@ public class ApacheDataSourceProvider implements DataSourceProvider {
     }
 
     @Override
-    public DataSource provide() {
+    public DataSource get() {
         return dataSource;
     }
 }

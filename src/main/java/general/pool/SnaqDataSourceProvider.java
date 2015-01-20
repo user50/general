@@ -1,5 +1,6 @@
 package general.pool;
 
+import com.google.inject.Provider;
 import snaq.db.DBPoolDataSource;
 
 import javax.sql.DataSource;
@@ -7,7 +8,7 @@ import javax.sql.DataSource;
 /**
  * Created by Yevhen on 12/13/14.
  */
-public class SnaqDataSourceProvider implements DataSourceProvider {
+public class SnaqDataSourceProvider implements Provider<DataSource> {
 
     private DBPoolDataSource dataSource;
 
@@ -24,7 +25,7 @@ public class SnaqDataSourceProvider implements DataSourceProvider {
     }
 
     @Override
-    public DataSource provide() {
+    public DataSource get() {
         return dataSource;
     }
 }
