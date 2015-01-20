@@ -61,7 +61,7 @@ public class JdbcService {
                 update.prepare(statement);
                 statement.addBatch();
 
-                if ( ((i + 1) % update.executeBatchEvery() == 0) ) {
+                if ( ((i++ + 1) % update.executeBatchEvery() == 0) ) {
                     statement.executeBatch();
                 }
             }
