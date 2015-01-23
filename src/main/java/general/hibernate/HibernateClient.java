@@ -51,7 +51,7 @@ public class HibernateClient {
 
     public static interface Query<T>
     {
-        public <T> T execute(Session session);
+        public T execute(Session session);
     }
 
     public static interface Update
