@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReadWithScanner {
+public class CSVReader {
 
     private final Path fFilePath;
     private final static Charset ENCODING = StandardCharsets.UTF_8;
 
-    public ReadWithScanner(String aFileName){
+    public CSVReader(String aFileName){
         fFilePath = Paths.get(aFileName);
     }
 
