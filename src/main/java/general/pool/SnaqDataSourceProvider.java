@@ -1,6 +1,8 @@
 package general.pool;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import snaq.db.DBPoolDataSource;
 
 import javax.sql.DataSource;
@@ -12,7 +14,8 @@ public class SnaqDataSourceProvider implements Provider<DataSource> {
 
     private DBPoolDataSource dataSource;
 
-    public SnaqDataSourceProvider(String url, int maxPoolSize) {
+    @Inject
+    public SnaqDataSourceProvider(@Named("url") String url, @Named("maxPoolSize") int maxPoolSize) {
         dataSource = new DBPoolDataSource();
         dataSource.setName("pool-ds");
         dataSource.setDescription("Pooling DataSource");

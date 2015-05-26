@@ -19,7 +19,7 @@ public class JdbcServiceModule extends AbstractModule {
         bind(DataSource.class).toProvider(ApacheDataSourceProvider.class);
 
         bind(String.class).annotatedWith(Names.named("url"))
-                .toInstance("jdbc:mysql://78.140.179.45:3306/aligator_engine_deposit?user=deposit&password=photos&allowMultiQueries=true");
+                .toInstance("jdbc:mysql://localhost:3306/aligator_engine_deposit?user=root&password=neuser50&allowMultiQueries=true");
         bind(Integer.class).annotatedWith(Names.named("maxPoolSize")).toInstance(10);
     }
 }

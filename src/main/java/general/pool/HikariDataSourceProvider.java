@@ -1,6 +1,8 @@
 package general.pool;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -13,7 +15,8 @@ public class HikariDataSourceProvider implements Provider<DataSource> {
 
     private DataSource dataSource;
 
-    public HikariDataSourceProvider(String url, int maxPoolSize) {
+    @Inject
+    public HikariDataSourceProvider(@Named("url") String url, @Named("maxPoolSize") int maxPoolSize) {
         HikariConfig config = new HikariConfig();
         config.setConnectionTestQuery("SELECT version()");
         config.setConnectionTimeout(10000L);

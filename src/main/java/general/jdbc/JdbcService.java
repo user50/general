@@ -1,6 +1,8 @@
 package general.jdbc;
 
 
+import com.google.inject.Inject;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ public class JdbcService {
 
     private DataSource dataSource;
 
+    @Inject
     public JdbcService(DataSource dataSource) {
         this.dataSource = dataSource;
     }
