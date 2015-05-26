@@ -28,15 +28,16 @@ public class JdbcService {
     }
 
     public <T> T executeQueryByCursor(SqlOperation query, ResultSetExtractor<T> resultSetExtractor) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                query.getRawSql(),
-                ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
-        );
-        statement.setFetchSize( Integer.MIN_VALUE );
+        try(Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    query.getRawSql(),
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
+            );
+            statement.setFetchSize(Integer.MIN_VALUE);
 
-        try( ResultSet resultSet = statement.executeQuery() ) {
-            return resultSetExtractor.read(resultSet);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSetExtractor.read(resultSet);
+            }
         }
     }
 
