@@ -9,4 +9,6 @@ public interface HttpRequestProvider {
 
     HttpRequestBase getRequest();
 
+    String getHost();
+
 }

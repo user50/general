@@ -17,7 +17,6 @@ import java.util.Map;
 public class HttpService {
 
     CloseableHttpClient httpClient;
-    HttpHost host;
 
     public HttpService(CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
@@ -27,7 +26,7 @@ public class HttpService {
 
         HttpRequestBase httpRequest = httpRequestProvider.getRequest();
 
-        try (CloseableHttpResponse response = httpClient.execute(host, httpRequest)) {
+        try (CloseableHttpResponse response = httpClient.execute(new HttpHost(httpRequestProvider.getHost()), httpRequest)) {
 
             return responseHandler.handle(response);
         }
