@@ -36,6 +36,7 @@ public class JdbcService {
                     query.getRawSql(),
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
             );
+            query.prepare(statement);
             statement.setFetchSize(Integer.MIN_VALUE);
 
             try (ResultSet resultSet = statement.executeQuery()) {
