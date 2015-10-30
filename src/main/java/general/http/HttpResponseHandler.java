@@ -2,11 +2,10 @@ package general.http;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 
-/**
- * Created by user50 on 26.05.2015.
- */
+import java.io.IOException;
+
 public interface HttpResponseHandler<T> {
 
-    T handle(CloseableHttpResponse httpResponse);
+    T handle(CloseableHttpResponse httpResponse) throws IOException;
 
 }
