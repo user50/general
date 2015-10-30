@@ -8,9 +8,6 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
-/**
- * Created by user50 on 18.12.2014.
- */
 public abstract class Config {
 
     private ConfigProvider configProvider;
