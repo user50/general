@@ -43,11 +43,12 @@ public class JdbcService {
     }
 
     public <T> T executeQueryByCursor(SqlOperation query, ResultSetExtractor<T> resultSetExtractor) throws SQLException {
-        try(Connection connection = dataSource.getConnection()) {
+        try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     query.getRawSql(),
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
-            );
+            )) {
+
             query.prepare(statement);
             statement.setFetchSize(Integer.MIN_VALUE);
 
@@ -58,11 +59,11 @@ public class JdbcService {
     }
 
     public void executeQueryByCursor(SqlOperation query, ResultSetConsumer resultSetConsumer) throws SQLException {
-        try(Connection connection = dataSource.getConnection()) {
+        try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(
-                    query.getRawSql(),
-                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
-            );
+                query.getRawSql(),
+                ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY)) {
+
             query.prepare(statement);
             statement.setFetchSize(Integer.MIN_VALUE);
 
