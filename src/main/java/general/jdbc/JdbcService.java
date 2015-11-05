@@ -30,6 +30,18 @@ public class JdbcService {
         }
     }
 
+    public void executeQuery(SqlOperation query, ResultSetConsumer resultSetConsumer) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query.getRawSql())) {
+            query.prepare(preparedStatement);
+
+            try(ResultSet resultSet = preparedStatement.executeQuery())
+            {
+                resultSetConsumer.accept(resultSet);
+            }
+        }
+    }
+
     public <T> T executeQueryByCursor(SqlOperation query, ResultSetExtractor<T> resultSetExtractor) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -41,6 +53,21 @@ public class JdbcService {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSetExtractor.read(resultSet);
+            }
+        }
+    }
+
+    public void executeQueryByCursor(SqlOperation query, ResultSetConsumer resultSetConsumer) throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    query.getRawSql(),
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
+            );
+            query.prepare(statement);
+            statement.setFetchSize(Integer.MIN_VALUE);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                resultSetConsumer.accept(resultSet);
             }
         }
     }
