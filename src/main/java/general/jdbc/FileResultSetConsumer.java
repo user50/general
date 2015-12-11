@@ -10,11 +10,11 @@ import java.util.function.Function;
 public class FileResultSetConsumer implements ResultSetConsumer {
 
     String fileName;
-    Function<ResultSet, String> rawToString;
+    Function<ResultSet, String> rowToString;
 
-    public FileResultSetConsumer(String fileName, Function<ResultSet, String> rawToString) {
+    public FileResultSetConsumer(String fileName, Function<ResultSet, String> rowToString) {
         this.fileName = fileName;
-        this.rawToString = rawToString;
+        this.rowToString = rowToString;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class FileResultSetConsumer implements ResultSetConsumer {
         try(PrintWriter output = new PrintWriter(new FileWriter(fileName)))
         {
             while (resultSet.next())
-                output.println(rawToString.apply(resultSet));
+                output.println(rowToString.apply(resultSet));
 
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
