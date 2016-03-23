@@ -5,7 +5,6 @@ version = '1.0'
 repositories {
     mavenCentral()
 
-    maven( url = "https://jlangdetect.googlecode.com/svn/repo" )
 }
 
 dependencies {
@@ -28,10 +27,7 @@ dependencies {
 
     compile 'com.google.inject:guice:3.0'
 
-    /* language detection dependency */
-    compile 'com.cybozu.labs:langdetect:1.1-20120112'
-    compile 'me.champeau.jlangdetect:jlangdetect-extra:0.3'
-
+    compile 'org.elasticsearch:elasticsearch:1.5.1'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
