@@ -1,5 +1,6 @@
 package general.http;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.methods.HttpRequestBase;
 
 /**
@@ -9,6 +10,6 @@ public interface HttpRequestProvider {
 
     HttpRequestBase getRequest();
 
-    String getHost();
+    HttpHost getHost();
 
 }

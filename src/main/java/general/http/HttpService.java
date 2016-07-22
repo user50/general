@@ -22,7 +22,7 @@ public class HttpService {
 
         HttpRequestBase httpRequest = httpRequestProvider.getRequest();
 
-        try (CloseableHttpResponse response = httpClient.execute(new HttpHost(httpRequestProvider.getHost()), httpRequest)) {
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestProvider.getHost(), httpRequest)) {
 
             return responseHandler.handle(response);
         }
