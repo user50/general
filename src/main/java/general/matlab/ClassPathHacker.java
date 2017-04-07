@@ -13,12 +13,7 @@ public class ClassPathHacker {
     private static final Class[] parameters = new Class[]{URL.class};
 
     public static void addFolder(String folderPath) throws IOException {
-        File[] jars = new File(folderPath).listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.matches(".*jar");
-            }
-        });
+        File[] jars = new File(folderPath).listFiles((dir, name) ->  name.matches(".*jar") );
 
         for (File jar : jars) {
             addFile(jar);
