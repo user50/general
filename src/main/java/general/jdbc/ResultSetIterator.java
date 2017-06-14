@@ -1,20 +1,18 @@
 package general.jdbc;
 
-import java.io.Closeable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.function.Function;
 
 public class ResultSetIterator<T> implements Iterator<T> {
 
     private ResultSet resultSet;
-    private Function<ResultSet,T> dataMapper;
+    private RowMapper<T> dataMapper;
 
     private boolean hasNext = false;
     private boolean nextCalled = true;
 
-    public ResultSetIterator(ResultSet resultSet, Function<ResultSet, T> dataMapper) {
+    public ResultSetIterator(ResultSet resultSet, RowMapper<T> dataMapper) {
         this.resultSet = resultSet;
         this.dataMapper = dataMapper;
     }
@@ -38,6 +36,11 @@ public class ResultSetIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         nextCalled = true;
-        return dataMapper.apply(resultSet);
+
+        try {
+            return dataMapper.apply(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

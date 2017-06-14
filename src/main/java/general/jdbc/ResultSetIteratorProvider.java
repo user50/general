@@ -13,9 +13,9 @@ public class ResultSetIteratorProvider<T> implements Closeable {
 
     private Connection connection;
     private String sqlQuery;
-    private Function<ResultSet,T> dataMapper;
+    private RowMapper<T> dataMapper;
 
-    public ResultSetIteratorProvider(Connection connection, String sqlQuery, Function<ResultSet, T> dataMapper) {
+    public ResultSetIteratorProvider(Connection connection, String sqlQuery, RowMapper<T> dataMapper) {
         this.connection = connection;
         this.sqlQuery = sqlQuery;
         this.dataMapper = dataMapper;

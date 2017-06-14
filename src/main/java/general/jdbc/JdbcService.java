@@ -104,7 +104,7 @@ public class JdbcService {
         }
     }
 
-    public <T> ResultSetIteratorProvider<T> iteratorOverResult(String sqlQuery, Function<ResultSet,T> dataMapper){
+    public <T> ResultSetIteratorProvider<T> iteratorOverResult(String sqlQuery, RowMapper<T> dataMapper){
         try {
             return new ResultSetIteratorProvider<T>(dataSource.getConnection(), sqlQuery, dataMapper);
         } catch (SQLException e) {
