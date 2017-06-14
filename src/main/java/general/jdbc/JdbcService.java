@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.function.Function;
 
 public class JdbcService {
 
@@ -100,6 +101,14 @@ public class JdbcService {
 
             statement.executeBatch();
             connection.setAutoCommit(true);
+        }
+    }
+
+    public <T> ResultSetIteratorProvider<T> iteratorOverResult(String sqlQuery, Function<ResultSet,T> dataMapper){
+        try {
+            return new ResultSetIteratorProvider<T>(dataSource.getConnection(), sqlQuery, dataMapper);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
